@@ -72,14 +72,13 @@ function focusPlusContext(data) {
     var minDate = d3.min(data.features, function (d) { return parseDate(d.properties.Date) });
     var maxMag = d3.max(data.features, function (d) { return d.properties.EQ_PRIMARY });
     var minMag = d3.min(data.features, function (d) { return d.properties.EQ_PRIMARY })
-
     //Calculate todays date.
     maxDate_plus = new Date(maxDate.getTime() + 300 * 144000000)
 
     /**
      * Task 5 - Set the axes scales, both for focus and context.
      */
-
+        // Confusing instructions. The axes are already defined above.
         xScale.domain([minDate,maxDate_plus])
         yScale.domain([minMag,maxMag])
         navXScale.domain([minDate,maxDate_plus])
