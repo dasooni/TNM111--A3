@@ -43,7 +43,6 @@ function worldMap(data) {
             this.stream.point(point.x, point.y);
         }
 
-
     /**
      * Task 18 - Now we need to transform all to the specific projection
      * create a variable called transform and use d3.geoTransform with the function above a parameter
@@ -75,7 +74,7 @@ function worldMap(data) {
      */
     //features for the points
 
-    feature = svg_map.selectAll("circle")
+    feature = g.selectAll("circle")
         .data(data.features)
         .enter()
         .append("circle")
