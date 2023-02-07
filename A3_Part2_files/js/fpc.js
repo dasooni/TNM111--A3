@@ -50,21 +50,23 @@ function focusPlusContext(data) {
     /**
      * Task 2 - Define scales and axes for scatterplot
      */
-        xScale = d3.scaleTime().range([0,width])
-        yScale = d3.scaleLinear().range([height,0])
-        xAxis = d3.axisBottom(xScale)
-        yAxis = d3.axisLeft(yScale)
+        // scaleTime for x-axis (array of dates), scaleLinear for y-axis
+        xScale = d3.scaleTime().range([0,width]) // width is the width of the focus graph
+        yScale = d3.scaleLinear().range([height,0]) // height is the height of the focus graph
+        xAxis = d3.axisBottom(xScale) // x-axis for focus graph
+        yAxis = d3.axisLeft(yScale) // y-axis for focus graph
 
     /**
      * Task 3 - Define scales and axes for context (Navigation through the data)
      */ 
-        navXScale = d3.scaleTime().range([0,width])
-        navYScale = d3.scaleLinear().range([height2,0])
-        navXAxis = d3.axisBottom(navXScale)
+        navXScale = d3.scaleTime().range([0,width]) // width is the width of the context graph
+        navYScale = d3.scaleLinear().range([height2,0]) // height2 is the height of the context graph
+        navXAxis = d3.axisBottom(navXScale) // x-axis for context graph
 
     /**
      * Task 4 - Define the brush for the context graph (Navigation)
      */
+        // brushX for the context graph. The brush is a tool that allows the user to select a subset of the data. I.E context.
         brush = d3.brushX().extent([[0,0],[width,height2]]).on("brush end", brushed)
 
     //Setting scale parameters
@@ -79,10 +81,10 @@ function focusPlusContext(data) {
      * Task 5 - Set the axes scales, both for focus and context.
      */
         // Confusing instructions. The axes are already defined above.
-        xScale.domain([minDate,maxDate_plus])
-        yScale.domain([minMag,maxMag])
-        navXScale.domain([minDate,maxDate_plus])
-        navYScale.domain([minMag,maxMag])
+        xScale.domain([minDate,maxDate_plus]) // x-axis for focus graph
+        yScale.domain([minMag,maxMag]) // y-axis for focus graph
+        navXScale.domain([minDate,maxDate_plus]) // x-axis for context graph
+        navYScale.domain([minMag,maxMag]) // y-axis for context graph
     //<---------------------------------------------------------------------------------------------------->
 
     /**
@@ -96,6 +98,8 @@ function focusPlusContext(data) {
     /**
     * Task 6 - Call the navigation axis on context.
     */
+
+    // 'g' is used to group svg shapes together
     context.append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height2 + ")")
@@ -164,7 +168,8 @@ function focusPlusContext(data) {
     /**
      * Task 11 - Plot the dots on the focus graph.
      */
-    selected_dots = dots.selectAll("dot")
+    
+    selected_dots = dots.selectAll("dot") // Select all SVG that have the class 'dot'
         //here..
         .data(data.features)
         .enter().append("circle")
@@ -199,8 +204,8 @@ function focusPlusContext(data) {
             /**
              * Task 13 - Update information in the "tooltip" by calling the tooltip function.
              */
-
-            points.tooltip(d);
+                
+            points.tooltip(d); // The information tab on the right side 
 
             //Rescale the dots onhover
             d3.select(this).attr('r', 15)
@@ -258,7 +263,7 @@ function focusPlusContext(data) {
      */
 
     //here..
-    context.append("g")
+    context.append("g") // Append g tag for brush
         .attr("class", "brush")
         .call(brush)
         .call(brush.move, xScale.range());
